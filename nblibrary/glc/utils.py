@@ -22,7 +22,7 @@ def read_cesm_smb(path, case_name, last_year, climo_nyears, params):
 
         year_to_read = last_year - k
         filename = (
-            f"{path}/{case_name}.cpl.hx.1yr2glc.{year_to_read:04d}-01-01-00000.nc"
+            f"{path}/{case_name}.cpl.hx.exp2glc.{year_to_read:04d}-01-01-00000.nc"
         )
 
         if not os.path.isfile(filename):

@@ -1,9 +1,9 @@
 ## Configurations used for ctsm-mizuRoute
 
 # Directories
-geospatial_dir: /glade/campaign/cesm/development/cross-wg/diagnostic_framework/rof_data/geospatial
-ancillary_dir: /glade/campaign/cesm/development/cross-wg/diagnostic_framework/rof_data/ancillary_data
-ref_flow_dir: /glade/campaign/cesm/development/cross-wg/diagnostic_framework/rof_data/obs
+geospatial_dir: /nird/datalake/NS16000B/CUPiD-obs/rof/geospatial
+ancillary_dir: /nird/datalake/NS16000B/CUPiD-obs/rof/ancillary_data
+ref_flow_dir: /nird/datalake/NS16000B/CUPiD-obs/rof/obs
 
 # case meta dictionary data (TODO: consider removing color)
 # grid_name -> name of grid

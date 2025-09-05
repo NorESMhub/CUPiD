@@ -4,6 +4,10 @@
 # Data Sources #
 ################
 data_sources:
+    # sname is any string used as a nickname for this configuration. It will be
+    ### used as the name of the folder your computed notebooks are put in
+    sname: key_metrics
+
     # run_dir is the path to the folder you want
     ### all the files associated with this configuration
     ### to be created in
@@ -41,41 +45,112 @@ computation_config:
 # All parameters under global_params get passed to all the notebooks
 
 global_params:
-  case_name: 'b.e30_beta02.BLT1850.ne30_t232.104'
-  base_case_name: 'b.e23_alpha17f.BLT1850.ne30_t232.092'
-  CESM_output_dir: /glade/campaign/cesm/development/cross-wg/diagnostic_framework/CESM_output_for_testing
-  start_date: '0001-01-01'
-  end_date: '0101-01-01'
-  base_start_date: '0001-01-01'
-  base_end_date: '0101-01-01'
-  obs_data_dir: '/glade/campaign/cesm/development/cross-wg/diagnostic_framework/CUPiD_obs_data'
+  case_name: 'n1850.ne30_tn14.nor3_b01-noLU_yr101.20250729'
+  base_case_name: 'n1850.ne30_tn14.cplhist.3_0_a03b.20250606'
+  CESM_output_dir: /nird/datalake/NS9560K/noresm3/tseries
+  start_date: '0101-01-01'
+  end_date: '0121-01-01'
+  base_start_date: '0101-01-01'
+  base_end_date: '0121-01-01'
+  obs_data_dir: '/nird/datalake/NS16000B/CUPiD-obs'
   ts_dir: null # If this is set to null, it will default to CESM_output_dir; if you don't have permissions to write to CESM_output_dir, you can specify a directory such as your scratch arcive directory
+    #ts_dir: /nird/datalake/NS9560K/noresm3/tseries
+
+  #case_name: 'nf1850_ne30pg3_ne30pg3_mtn14_aer2014_alpha3d.20250527'
+  #base_case_name: 'nf1850_ne30pg3_ne30pg3_mtn14_alpha3d.20250527'
+  #CESM_output_dir: /nird/datalake/NS9560K/noresm/tseries
+  #start_date: '0001-01-01'
+  #end_date: '0011-01-01'
+  #base_start_date: '0001-01-01'
+  #base_end_date: '0011-01-01'
+  #obs_data_dir: '/nird/datalake/NS16000B/CUPiD-obs'
+  #ts_dir: null # If this is set to null, it will default to CESM_output_dir; if you don't have permissions to write to CESM_output_dir, you can specify a directory such as your scratch arcive directory
+
+  # case for CISM
+  #case_name: 'ERS_D_Ly5.ne30pg3_tn14_ais8gris4.TC1850Gag.betzy_intel.cism-ocn2glc_cplhist_nor_withocean_newgrids.newgrids_1'
+  #base_case_name: null
+  #CESM_output_dir: /nird/datalake/NS9560K/noresm/tseries
+  #start_date: '0002-01-01'
+  #end_date: '0006-01-01'
+  #base_start_date: null
+  #base_end_date: null
+  #obs_data_dir: '/nird/datalake/NS16000B/CUPiD-obs'
+  #ts_dir: null # If this is set to null, it will default to CESM_output_dir; if you don't have permissions to write to CESM_output_dir, you can specify a directory such as your scratch arcive directory
+
   lc_kwargs:
     threads_per_worker: 1
+    n_workers: 1
 
 timeseries:
   num_procs: 8
   ts_done: [False, False]
   overwrite_ts: [False, False]
-  case_name: ['b.e30_beta02.BLT1850.ne30_t232.104', 'b.e23_alpha17f.BLT1850.ne30_t232.092']
+  case_name: ['n1850.ne30_tn14.nor3_b01-noLU_yr101.20250729','n1850.ne30_tn14.cplhist.3_0_a03b.20250606']
+  #case_name: ['nf1850_ne30pg3_ne30pg3_mtn14_aer2014_alpha3d.20250527','nf1850_ne30pg3_ne30pg3_mtn14_alpha3d.20250527']
+  #case_name: ['n1850.ne30_tn14.coare.alpha03b','n1850.ne30_tn14.noresm3_0_alpha03d.20250528']
+  #case_name: ['ERS_D_Ly5.ne30pg3_tn14_ais8gris4.TC1850Gag.betzy_intel.cism-ocn2glc_cplhist_nor_withocean_newgrids.newgrids_1']
 
   atm:
     vars: ['PSL']
     derive_vars: []
     hist_str: 'cam.h0a'
-    start_years: [1,1]
-    end_years: [100,100]
+    start_years: [101,101]
+    end_years: [121,121]
     level: 'lev'
-    mapping_file: [Null, '/glade/campaign/cesm/cesmdata/inputdata/cpl/gridmaps/ne30pg3/map_ne30pg3_TO_fv0.9x1.25_blin.240826.nc']
+    mapping_file: [Null, Null]
 
 
   lnd:
-    vars: ['SOILWATER_10CM','FSH_TO_COUPLER']
-    derive_vars: []
+    vars: ['SOILWATER_10CM','mrsos',
+           'FSH_TO_COUPLER',
+          'TOTVEGC','cVeg','biomass',
+          'FAREA_BURNED','burntArea',
+          'co2',
+          'GPP','gpp','FATES_GPP',
+          'TLAI','lai',
+          'NBP','nbp',
+          'NEE','nee',
+          'reco',
+          'TOTSOMC_1m','cSoil','cSoilAbove1m',
+          'FFIX_TO_SMINN','fBNF',
+          'et','evspsbl',
+          'EvapFrac',
+          'hfls','le','EFLX_LH_TOT',
+          'runoff','mrro','QRUNOFF',
+          'hfss','sh','FSH',
+          'twsa','tws','TWS',
+          'H2OSNO','swe','snw',
+          'TSOI','tsl',
+          'albedo',
+          'rsus','FSR',
+          'rsns','FSA',
+          'rlus','FIRE',
+          'rlns','FLDS','FIRE',
+          'rns',
+          'hfdsl','FGR12',
+          'TSA','tas',
+          'TREFMXAV','tasmax',
+          'TREFMNAV','tasmin',
+          'dtr','TREFMXAV','TREFMNAV',
+          'pr',
+          'RH2M','rhums','hurs',
+          'FSDS','rsds',
+          'FLDS','rlds',
+          'TOTECOSYSC', 'TOTVEGC', 'TOTSOMC', 'SOM_PAS_C_vr'
+          ]
+    derive_vars: ['gpp-ra-rh','GPP-AR-HR',
+                  'AR+HR','QVEGE+QVEGT+QSOIL',
+                  'RAIN+SNOW-QVEGE-QVEGT-QSOIL-QRUNOFF',
+                  'rsds-rsus','FLDS-FIRE',
+                  'FLDS-FIRE+FSDS-FSR',
+                  'RAIN+SNOW'
+                 ]
     hist_str: 'h0'
-    start_years: [1,1]
-    end_years: [100,100]
+    start_years: [101,101]
+    end_years: [121,121]
     level: 'lev'
+    mapping_file: ['/nird/datalake/NS16000B/CUPiD-model/inputdata/cpl/gridmaps/ne30pg3/map_ne30pg3_TO_fv0.9x1.25_blin.240826.nc',
+                   '/nird/datalake/NS16000B/CUPiD-model/inputdata/cpl/gridmaps/ne30pg3/map_ne30pg3_TO_fv0.9x1.25_blin.240826.nc']
 
   ocn:
     vars: []
@@ -86,19 +161,20 @@ timeseries:
     level: 'lev'
 
   ice:
-    vars: ['aice','hi','hs']
+    vars: ['aice','hi','hs','atmspd','congel','frazil']
+    #vars: ['uvel','vvel']  "kernel died" (run under --serial) or "workers died" problem (related to dask without -s)
     derive_vars: []
     hist_str: 'cice.h'
-    start_years: [1,1]
-    end_years: [100,100]
+    start_years: [101,101]
+    end_years: [121,121]
     level: 'lev'
 
   glc:
-    vars: []
+    vars: ['glc1Exp_Flgl_qice','glc1Exp_Sl_tsrf']
     derive_vars: []
-    hist_str: 'initial_hist'
-    start_years: [1,1]
-    end_years: [100,100]
+    hist_str: 'cpl.hx.exp2glc'
+    start_years: [102,102]
+    end_years: [121,121]
     level: 'lev'
 
   rof:
@@ -128,12 +204,13 @@ compute_notebooks:
         parameter_groups:
           none:
             regridded_output: False # it looks like output is already on f09 grid, didn't need to regrid time-series file
-            base_regridded_output: True
-            validation_path: 'atm/analysis_datasets/fv0.9x1.25/seasonal_climatology/nmse_validation/PSL/'
+            base_regridded_output: False
+            validation_path: '/nird/datalake/NS16000B/CUPiD-obs/atm/analysis_datasets/fv0.9x1.25/seasonal_climatology/nmse_validation/PSL/'
       link_to_ADF:
         kernel_name: cupid-infrastructure
         parameter_groups:
           none:
+            #adf_root: ../../ADF_output/
             adf_root: ../../examples/key_metrics/ADF_output/
             key_plots: ["Surface_Wind_Stress_ANN_LatLon_Vector_Mean.png", "PRECT_ANN_LatLon_Mean.png", "PS_DJF_SHPolar_Mean.png", "TaylorDiag_ANN_Special_Mean.png"]
         external_tool:
@@ -147,7 +224,7 @@ compute_notebooks:
       Greenland_SMB_visual_compare_obs:
         parameter_groups:
           none:
-            obs_path: 'glc/analysis_datasets/multi_grid/annual_avg/SMB_data'
+            obs_path: '/nird/datalake/NS16000B/CUPiD-obs/glc/analysis_datasets/multi_grid/annual_avg/SMB_data'
             obs_name: 'GrIS_MARv3.12_climo_1960_1999.nc'
             climo_nyears: 40
 
@@ -172,9 +249,15 @@ compute_notebooks:
         parameter_groups:
           none:
             climo_nyears: 35
-            grid_file: '/glade/campaign/cesm/community/omwg/grids/tx2_3v2_grid.nc'
-            path_model: '/glade/campaign/cesm/development/cross-wg/diagnostic_framework/CUPiD_model_data/ice/'
-
+            grid_file: '/nird/datalake/NS16000B/CUPiD-model/inputdata/ocn/blom/tnx1v4/grid.nc'
+            path_nsidc: '/nird/datalake/NS16000B/CUPiD-obs/ice/analysis_datasets/hemispheric_data/NSIDC_SeaIce_extent'
+            path_model: '/nird/datalake/NS16000B/CUPiD-model/ice'
+      Hemis_seaice_visual_compare_contour:
+        parameter_groups:
+          none:
+            climo_nyears: 35
+            grid_file: '/nird/datalake/NS16000B/CUPiD-model/inputdata/ocn/blom/tnx1v4/grid.nc'
+            path_nsidc: '/nird/datalake/NS16000B/CUPiD-obs/ice/analysis_datasets/hemispheric_data/NSIDC_SeaIce_extent'
 
     lnd:
       Global_TerrestrialCouplingIndex_VisualCompareObs:
@@ -182,7 +265,7 @@ compute_notebooks:
           none:
             clmFile_h: 'h0'
             fluxnet_comparison: True
-            obsDir: 'lnd/analysis_datasets/ungridded/timeseries/FLUXNET2015/'
+            obsDir: '/nird/datalake/NS16000B/CUPiD-obs/lnd/analysis_datasets/ungridded/timeseries/FLUXNET2015/'
       link_to_LDF:
         kernel_name: cupid-infrastructure
         parameter_groups:
@@ -211,6 +294,21 @@ compute_notebooks:
                         'Amazonia','Central Africa','Indonesia',
                         'Brazil','Sahel','Southern Africa','India']
 
+      Global_Land_Compare_Two_Cases:
+        parameter_groups:
+          none:
+            clmFile_h: '.h0.'
+      #     fluxnet_comparison: True
+      #     obsDir: '/nird/datalake/NS16000B/CUPiD-obs/lnd/analysis_datasets/ungridded/timeseries/FLUXNET2015/'
+      link_to_ILAMB:
+        parameter_groups:
+          none:
+            ilamb_root: ../../examples/external_diag_packages/ILAMB_output
+            key_plots: ["EcosystemandCarbonCycle/GrossPrimaryProductivity/FLUXCOM/CTSM51_global_bias.png", "EcosystemandCarbonCycle/LeafAreaIndex/AVHRR/CTSM51_global_bias.png", "EcosystemandCarbonCycle/GlobalNetEcosystemCarbonBalance/GCP/CTSM51_global_accumulate.png", "ILAMB_output_backup/HydrologyCycle/Permafrost/Brown2002/CTSM51_global_bias.png"]
+            print_table: False
+        external_tool:
+          tool_name: 'ILAMB'
+          ilamb_config_data_loc: '/nird/datalake/NS16000B/ILAMB-Data/'
 #    ocn:
 #      ocean_surface:
 #        parameter_groups:
@@ -259,11 +357,14 @@ book_toc:
     - caption: Land
       chapters:
         - file: lnd/Global_TerrestrialCouplingIndex_VisualCompareObs
+        - file: lnd/Global_Land_Compare_Two_Cases
+        - file: lnd/link_to_ILAMB
         - file: lnd/link_to_LDF
 
     - caption: Sea Ice
       chapters:
         - file: ice/Hemis_seaice_visual_compare_obs_lens
+        - file: ice/Hemis_seaice_visual_compare_contour
 
     - caption: Land Ice
       chapters:
@@ -279,7 +380,7 @@ book_toc:
 #####################################
 book_config_keys:
 
-  title: CESM Key Metrics   # Title of your jupyter book
+  title: NorESM diagnostics with CUPiD  # Title of your jupyter book
 
   # Other keys can be added here, see https://jupyterbook.org/en/stable/customize/config.html
   ### for many more options
