@@ -1,5 +1,8 @@
 ################## SETUP ##################
 
+#--------------------
+user: 'USER-NAME-NOT-SET'
+
 ################
 # Data Sources #
 ################
@@ -17,7 +20,7 @@ data_sources:
     ### look for your template notebooks in. It doesn't have to
     ### be inside run_dir, or be specific to this project, as
     ### long as the notebooks are there
-    nb_path_root: /diagnostics/CUPiD-src/nblibrary
+    nb_path_root: /nird/datalake/NS16000B/CUPiD-src/nblibrary
 
 ######################
 # Computation Config #
@@ -52,9 +55,9 @@ global_params:
   end_date: '0120-01-01'
   base_start_date: '0101-01-01'
   base_end_date: '0120-01-01'
-  obs_data_dir: '/diagnostics/CUPiD-obs'
-  #model_data_dir: '/diagnostics/CUPiD-model'
-  ts_dir: '/scratch/yanchun/noresm3/tseries' # If this is set to null, it will default to CESM_output_dir; if you don't have permissions to write to CESM_output_dir, you can specify a directory such as your scratch arcive directory
+  obs_data_dir: '/nird/datalake/NS16000B/CUPiD-obs'
+  #model_data_dir: '/nird/datalake/NS16000B/CUPiD-model'
+  ts_dir: '/scratch/${user}/noresm3' # If this is set to null, it will default to CESM_output_dir; if you don't have permissions to write to CESM_output_dir, you can specify a directory such as your scratch arcive directory
 
   lc_kwargs:
     threads_per_worker: 1
@@ -63,7 +66,7 @@ global_params:
 timeseries:
   num_procs: 8
   ts_done: [False, False]
-  ts_output_dir: '/scratch/yanchun/noresm3/tseries'
+  ts_output_dir: '/scratch/${user}/noresm3'
   overwrite_ts: [False, False]
   case_name: ['n1850.ne30_tn14.nor3_b01-noLU_yr101.20250729','n1850.ne30_tn14.cplhist.3_0_a03b.20250606']
 
@@ -74,7 +77,7 @@ timeseries:
     start_years: [101,101]
     end_years: [120,120]
     level: 'lev'
-    mapping_file: ['/diagnostics/CUPiD-model/inputdata/cpl/gridmaps/ne30pg3/map_ne30pg3_TO_fv0.9x1.25_blin.240826.nc', '/diagnostics/CUPiD-model/inputdata/cpl/gridmaps/ne30pg3/map_ne30pg3_TO_fv0.9x1.25_blin.240826.nc']
+    mapping_file: ['/nird/datalake/NS16000B/CUPiD-model/inputdata/cpl/gridmaps/ne30pg3/map_ne30pg3_TO_fv0.9x1.25_blin.240826.nc', '/nird/datalake/NS16000B/CUPiD-model/inputdata/cpl/gridmaps/ne30pg3/map_ne30pg3_TO_fv0.9x1.25_blin.240826.nc']
 
 
   lnd:
@@ -126,8 +129,8 @@ timeseries:
     start_years: [101,101]
     end_years: [120,120]
     level: 'lev'
-    mapping_file: ['/diagnostics/CUPiD-model/inputdata/cpl/gridmaps/ne30pg3/map_ne30pg3_TO_fv0.9x1.25_blin.240826.nc',
-                   '/diagnostics/CUPiD-model/inputdata/cpl/gridmaps/ne30pg3/map_ne30pg3_TO_fv0.9x1.25_blin.240826.nc']
+    mapping_file: ['/nird/datalake/NS16000B/CUPiD-model/inputdata/cpl/gridmaps/ne30pg3/map_ne30pg3_TO_fv0.9x1.25_blin.240826.nc',
+                   '/nird/datalake/NS16000B/CUPiD-model/inputdata/cpl/gridmaps/ne30pg3/map_ne30pg3_TO_fv0.9x1.25_blin.240826.nc']
 
   ocn:
     vars: []
@@ -188,8 +191,7 @@ compute_notebooks:
         kernel_name: cupid-infrastructure
         parameter_groups:
           none:
-            #adf_root: ../../ADF_output/
-            adf_root: ../../examples/key_metrics/ADF_output/
+            adf_root: ./
             key_plots: ["Surface_Wind_Stress_ANN_LatLon_Vector_Mean.png", "PRECT_ANN_LatLon_Mean.png", "PS_DJF_SHPolar_Mean.png", "TaylorDiag_ANN_Special_Mean.png",
                         "TS_ANN_LatLon_Mean.png","SWCF_ANN_LatLon_Mean.png","LWCF_ANN_LatLon_Mean.png","TGCLDLWP_ANN_LatLon_Mean.png",]
         external_tool:
@@ -207,7 +209,6 @@ compute_notebooks:
           #plotting_scripts: ['global_mean_timeseries', 'global_latlon_map', 'zonal_mean', 'meridional_mean', 'polar_map', 'global_latlon_vect_map', 'cam_taylor_diagram', 'qbo']
           plotting_scripts: ['global_latlon_map']
           analysis_scripts: ["amwg_table"]
-          base_regridded_output: False
 
     glc:
       Greenland_SMB_visual_compare_obs:

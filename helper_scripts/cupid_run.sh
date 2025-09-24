@@ -18,23 +18,23 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 # Set variables that come from environment or CESM XML files
-SRCROOT=/dummy/noresm/src
-CASEROOT=/dummy/casename/src
+SRCROOT=./
+CASEROOT=./
 CUPID_CASE_NAME=n1850.ne3pg3_tn21.noresm3_0_beta02.20250904
 CUPID_CASE_ROOT=/nird/datalake/NS9560K/noresm3/cases
-CUPID_ROOT=/diagnostics/CUPiD-src
+CUPID_ROOT=/nird/datalake/NS16000B/CUPiD-src
 CUPID_EXAMPLE='key_metrics'
 CUPID_GEN_TIMESERIES=TRUE
 CUPID_GEN_DIAGNOSTICS=TRUE
 CUPID_GEN_HTML=TRUE
 CUPID_BASELINE_CASE=null    #n1850.ne3pg3_tn21.noresm3_0_beta02.20250901
 CUPID_BASELINE_ROOT=/nird/datalake/NS9560K/noresm3/cases
-CUPID_TS_DIR=/scratch/$USER/noresm3/tseries
+CUPID_TS_DIR=/scratch/$USER/noresm3
 CUPID_STARTDATE=0001-01-01
 CUPID_NYEARS=60
 CUPID_BASE_STARTDATE=null
 CUPID_BASE_NYEARS=null
-CUPID_NTASKS=1
+CUPID_NTASKS=4
 CUPID_RUN_ALL=FALSE
 CUPID_RUN_ATM=FALSE
 CUPID_RUN_OCN=FALSE
