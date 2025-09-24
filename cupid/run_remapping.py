@@ -125,20 +125,34 @@ def run_remapping(
             if "ts_output_dir" in timeseries_params:
                 if isinstance(timeseries_params["ts_output_dir"], list):
                     ts_output_dirs = []
-                    for ts_outdir in timeseries_params["ts_output_dir"]:
-                        ts_output_dirs.append([
+                    # assuming multiple ts_out_dir will have matching case names
+                    for ts_outdir, cname in zip(timeseries_params["ts_output_dir"], timeseries_params["case_name"]):
+                        ts_output_dirs.append(
                             os.path.join(
                                     ts_outdir,
+                                    cname,
                                     f"{component}", "proc", "tseries",
                             ),
-                        ])
+                        )
                 else:
-                    ts_output_dirs = [
-                        os.path.join(
-                                timeseries_params["ts_output_dir"],
-                                f"{component}", "proc", "tseries",
-                        ),
-                    ]
+                    if isinstance(timeseries_params["case_name"], list):
+                        ts_output_dirs = []
+                        for cname in timeseries_params["case_name"]:
+                            ts_output_dirs.append(
+                                os.path.join(
+                                        timeseries_params["ts_output_dir"],
+                                        cname,
+                                        f"{component}", "proc", "tseries",
+                                ),
+                            )
+                    else:
+                        ts_output_dirs = [
+                            os.path.join(
+                                    timeseries_params["ts_output_dir"],
+                                    timeseries_params["case_name"],
+                                    f"{component}", "proc", "tseries",
+                            ),
+                        ]
             else:
                 if isinstance(timeseries_params["case_name"], list):
                     ts_output_dirs = []
