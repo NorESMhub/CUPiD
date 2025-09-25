@@ -237,13 +237,13 @@ compute_notebooks:
             figureSave: False
 
     ice:
-      Hemis_seaice_visual_compare_obs_lens:
-        parameter_groups:
-          none:
-            climo_nyears: 35
-            grid_file: '/nird/datalake/NS16000B/CUPiD-model/inputdata/ocn/blom/tnx1v4/grid.nc'
-            path_nsidc: '/nird/datalake/NS16000B/CUPiD-obs/ice/analysis_datasets/hemispheric_data/NSIDC_SeaIce_extent'
-            path_model: '/nird/datalake/NS16000B/CUPiD-model/ice'
+     #Hemis_seaice_visual_compare_obs_lens:
+     #  parameter_groups:
+     #    none:
+     #      climo_nyears: 35
+     #      grid_file: '/nird/datalake/NS16000B/CUPiD-model/inputdata/ocn/blom/tnx1v4/grid.nc'
+     #      path_nsidc: '/nird/datalake/NS16000B/CUPiD-obs/ice/analysis_datasets/hemispheric_data/NSIDC_SeaIce_extent'
+     #      path_model: '/nird/datalake/NS16000B/CUPiD-model/ice'
       Hemis_seaice_visual_compare_contour:
         parameter_groups:
           none:
@@ -255,7 +255,7 @@ compute_notebooks:
       Global_TerrestrialCouplingIndex_VisualCompareObs:
         parameter_groups:
           none:
-            clmFile_h: 'h0'
+            clmFile_h: '.h0.'
             fluxnet_comparison: True
             obsDir: '/nird/datalake/NS16000B/CUPiD-obs/lnd/analysis_datasets/ungridded/timeseries/FLUXNET2015/'
       link_to_LDF:
@@ -356,7 +356,7 @@ book_toc:
 
     - caption: Sea Ice
       chapters:
-        - file: ice/Hemis_seaice_visual_compare_obs_lens
+        #- file: ice/Hemis_seaice_visual_compare_obs_lens
         - file: ice/Hemis_seaice_visual_compare_contour
 
     - caption: Land Ice
