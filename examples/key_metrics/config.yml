@@ -20,7 +20,7 @@ data_sources:
     ### look for your template notebooks in. It doesn't have to
     ### be inside run_dir, or be specific to this project, as
     ### long as the notebooks are there
-    nb_path_root: /nird/datalake/NS16000B/CUPiD-src/nblibrary
+    nb_path_root: /diagnostics/CUPiD-src/nblibrary
 
 ######################
 # Computation Config #
@@ -55,8 +55,8 @@ global_params:
   end_date: '0120-01-01'
   base_start_date: '0101-01-01'
   base_end_date: '0120-01-01'
-  obs_data_dir: '/nird/datalake/NS16000B/CUPiD-obs'
-  #model_data_dir: '/nird/datalake/NS16000B/CUPiD-model'
+  obs_data_dir: '/diagnostics/CUPiD-obs'
+  #model_data_dir: '/diagnostics/CUPiD-model'
   ts_dir: '/scratch/${user}/noresm3' # If this is set to null, it will default to CESM_output_dir; if you don't have permissions to write to CESM_output_dir, you can specify a directory such as your scratch arcive directory
 
   lc_kwargs:
@@ -77,7 +77,7 @@ timeseries:
     start_years: [101,101]
     end_years: [120,120]
     level: 'lev'
-    mapping_file: ['/nird/datalake/NS16000B/CUPiD-model/inputdata/cpl/gridmaps/ne30pg3/map_ne30pg3_TO_fv0.9x1.25_blin.240826.nc', '/nird/datalake/NS16000B/CUPiD-model/inputdata/cpl/gridmaps/ne30pg3/map_ne30pg3_TO_fv0.9x1.25_blin.240826.nc']
+    mapping_file: ['/diagnostics/CUPiD-model/inputdata/cpl/gridmaps/ne30pg3/map_ne30pg3_TO_fv0.9x1.25_blin.240826.nc', '/diagnostics/CUPiD-model/inputdata/cpl/gridmaps/ne30pg3/map_ne30pg3_TO_fv0.9x1.25_blin.240826.nc']
 
 
   lnd:
@@ -129,8 +129,8 @@ timeseries:
     start_years: [101,101]
     end_years: [120,120]
     level: 'lev'
-    mapping_file: ['/nird/datalake/NS16000B/CUPiD-model/inputdata/cpl/gridmaps/ne30pg3/map_ne30pg3_TO_fv0.9x1.25_blin.240826.nc',
-                   '/nird/datalake/NS16000B/CUPiD-model/inputdata/cpl/gridmaps/ne30pg3/map_ne30pg3_TO_fv0.9x1.25_blin.240826.nc']
+    mapping_file: ['/diagnostics/CUPiD-model/inputdata/cpl/gridmaps/ne30pg3/map_ne30pg3_TO_fv0.9x1.25_blin.240826.nc',
+                   '/diagnostics/CUPiD-model/inputdata/cpl/gridmaps/ne30pg3/map_ne30pg3_TO_fv0.9x1.25_blin.240826.nc']
 
   ocn:
     vars: []
@@ -186,7 +186,7 @@ compute_notebooks:
             regridded_output: False # it looks like output is already on f09 grid, didn't need to regrid time-series file
             base_regridded_output: False
             #model_grid: fv0.9x1.25
-            #validation_path: '/nird/datalake/NS16000B/CUPiD-obs/atm/analysis_datasets/fv0.9x1.25/seasonal_climatology/nmse_validation/PSL/'
+            #validation_path: '/diagnostics/CUPiD-obs/atm/analysis_datasets/fv0.9x1.25/seasonal_climatology/nmse_validation/PSL/'
       link_to_ADF:
         kernel_name: cupid-infrastructure
         parameter_groups:
@@ -214,7 +214,7 @@ compute_notebooks:
       Greenland_SMB_visual_compare_obs:
         parameter_groups:
           none:
-            obs_path: '/nird/datalake/NS16000B/CUPiD-obs/glc/analysis_datasets/multi_grid/annual_avg/SMB_data'
+            obs_path: '/diagnostics/CUPiD-obs/glc/analysis_datasets/multi_grid/annual_avg/SMB_data'
             obs_name: 'GrIS_MARv3.12_climo_1960_1999.nc'
             climo_nyears: 40
 
@@ -241,15 +241,15 @@ compute_notebooks:
      #  parameter_groups:
      #    none:
      #      climo_nyears: 35
-     #      grid_file: '/nird/datalake/NS16000B/CUPiD-model/inputdata/ocn/blom/tnx1v4/grid.nc'
-     #      path_nsidc: '/nird/datalake/NS16000B/CUPiD-obs/ice/analysis_datasets/hemispheric_data/NSIDC_SeaIce_extent'
-     #      path_model: '/nird/datalake/NS16000B/CUPiD-model/ice'
+     #      grid_file: '/diagnostics/CUPiD-model/inputdata/ocn/blom/tnx1v4/grid.nc'
+     #      path_nsidc: '/diagnostics/CUPiD-obs/ice/analysis_datasets/hemispheric_data/NSIDC_SeaIce_extent'
+     #      path_model: '/diagnostics/CUPiD-model/ice'
       Hemis_seaice_visual_compare_contour:
         parameter_groups:
           none:
             climo_nyears: 35
-            grid_file: '/nird/datalake/NS16000B/CUPiD-model/inputdata/ocn/blom/tnx1v4/grid.nc'
-            path_nsidc: '/nird/datalake/NS16000B/CUPiD-obs/ice/analysis_datasets/hemispheric_data/NSIDC_SeaIce_extent'
+            grid_file: '/diagnostics/CUPiD-model/inputdata/ocn/blom/tnx1v4/grid.nc'
+            path_nsidc: '/diagnostics/CUPiD-obs/ice/analysis_datasets/hemispheric_data/NSIDC_SeaIce_extent'
 
     lnd:
       Global_TerrestrialCouplingIndex_VisualCompareObs:
@@ -257,7 +257,7 @@ compute_notebooks:
           none:
             clmFile_h: '.h0.'
             fluxnet_comparison: True
-            obsDir: '/nird/datalake/NS16000B/CUPiD-obs/lnd/analysis_datasets/ungridded/timeseries/FLUXNET2015/'
+            obsDir: '/diagnostics/CUPiD-obs/lnd/analysis_datasets/ungridded/timeseries/FLUXNET2015/'
       link_to_LDF:
         kernel_name: cupid-infrastructure
         parameter_groups:
@@ -292,7 +292,7 @@ compute_notebooks:
           none:
             clmFile_h: '.h0.'
       #     fluxnet_comparison: True
-      #     obsDir: '/nird/datalake/NS16000B/CUPiD-obs/lnd/analysis_datasets/ungridded/timeseries/FLUXNET2015/'
+      #     obsDir: '/diagnostics/CUPiD-obs/lnd/analysis_datasets/ungridded/timeseries/FLUXNET2015/'
       link_to_ILAMB:
         parameter_groups:
           none:
@@ -301,7 +301,7 @@ compute_notebooks:
             print_table: False
         external_tool:
           tool_name: 'ILAMB'
-          ilamb_config_data_loc: '/nird/datalake/NS16000B/ILAMB-Data/'
+          ilamb_config_data_loc: '/diagnostics/ILAMB-Data/'
 #    ocn:
 #      ocean_surface:
 #        parameter_groups:
